@@ -1,0 +1,31 @@
+.curd{
+    display: flex;
+    gap: 10px;
+    font-size: 40px;
+    padding: 20px;
+    text-decoration: none;
+    
+    
+}
+ .g1 {
+    background-color:rgb(102, 102, 229);
+    border-radius: 5px;
+    
+    text-decoration: none;
+   
+    padding: 5px 2px 2px 2px ;
+}
+
+.g2{
+    background-color: crimson;
+    border-radius: 5px;
+  
+    padding: 5px 2px 2px 2px ;
+} 
+.l-container{
+    color: white;
+    text-decoration: none ;
+}
+.l-container:hover{
+    color:cornsilk
+}

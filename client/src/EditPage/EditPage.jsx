@@ -1,44 +1,55 @@
-import React from 'react'
-import Navbar from '../Navbar/Navbar'
-import './RegisterPage.css'
-import {useNavigate} from 'react-router-dom'
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import React,{useState} from 'react'
+import { Link,useParams,useNavigate } from 'react-router-dom'
 import axios from 'axios'
-const RegisterPage = () => {
-  const [name,setName] = useState('')
-  const [gender,setGender] = useState('')
+import { useEffect } from 'react'
+const EditPage = () => {
+const navigate = useNavigate()
+
+const {id}=useParams()
+const [store,setData]=useState(null)
+        const [dis,setDis]=useState(false)
+      const [name,setName] = useState('')
+  
   const [age,setAge] = useState('')
   const [blood,setBlood] = useState('')
   const [phone,setPhone] = useState('')
   const [disease,setDisease] = useState('')
-  const[prescription,setPrescription]=useState(null)
+  
   const[medicine,setMedicine]=useState('')
-  const navigate=useNavigate()
-  const handleSubmit=async(e)=>{
+const getData=async()=>{
+    const {data}=await axios.get(`http://localhost:8080/details/${id}`)
+    setData(data)
+    setName(data.name)
+    
+    setAge(data.age)
+    setBlood(data.blood)
+    setPhone(data.phone)
+    setDisease(data.disease)
+    setMedicine(data.medicine)
+}
+  useEffect(()=>{
+    getData()
+  },[])
+  useEffect(()=>{
+    if(store){
+        setDis(true)
+    }
+  },[store])
+
+    const handleSubmit=async(e)=>{
     e.preventDefault() 
-    const formData= new FormData()
-    formData.append('name',name)
-    formData.append('gender',gender)
-    formData.append('age',age)
-    formData.append('blood',blood)
-    formData.append('phone',phone)
-    formData.append('disease',disease)
-    formData.append('photo',prescription)
-    formData.append('medicine',medicine)
-    const config=  {
-      headers:{
-          'Content-Type':'multipart/form-data'
-      }
-  }
-  await axios.post('http://localhost:8080/details',formData,config)
-     alert('Details are Sumbitted successfully..!!')
+   
+   
+  await axios.patch(`http://localhost:8080/${id}`,{name,age,blood,phone,disease,medicine})
+     alert('Details are edited successfully..!!')
      navigate('/Details')
     }
+
   return (
-    <div> 
-        <Navbar/>
-          <div className="App my-5 ">
+    
+   <div className="App my-5 ">
+    {!dis ?'loading' :
+    <>
           <i class="fa-solid fa-stethoscope"></i>
      <div className='container login-container'>
           <div className='row my-5'>
@@ -51,25 +62,14 @@ const RegisterPage = () => {
                                         <label className="form-label">Name:</label>
                                         <input type="text" placeholder='Full Name' className='form-control' value={name} onChange={e => setName(e.target.value)} />
                                     </div>
-                                    <div className='mb-3 col-6'>
-                                        <label className="form-label">Gender:</label> <br />
-
-                                      <input type="radio" checked={gender==='male'} value='male'
-                                      onChange={e=>setGender(e.target.value)}
-                                      className='form-check-input'/>Male 
-                                      <span className="mx-3"></span>
-                                      <input type="radio"
-                                      checked={gender==='female'} value='female'
-                                      onChange={e=>setGender(e.target.value)}
-                                      className='form-check-input' />Female
-                                    </div>
+                                 
                                     <div className="mb-3 col-6">
                                         <label className="form-label">Age:</label>
                                         <input type="text" placeholder='Age' className="form-control"  value={age} onChange={e => setAge(e.target.value)}/>
                                     </div>
                                     <div className="mb-3 col-6">
                                         <label className="form-label">Blood Group:</label>
-                                        <select className='form-select'  defaultValue="O+" id="" value={blood} onChange={e => setBlood(e.target.value)}>
+                                        <select className='form-select'  defaultValue={blood} id=""  onChange={e => setBlood(e.target.value)}>
                                           <option value="O+">O+</option>
                                           <option value="A+">A+</option>
                                           <option value="B+">B+</option>
@@ -89,10 +89,7 @@ const RegisterPage = () => {
                                           <label className="form-label">Disease:</label>
                                           <input type="text" placeholder=''   className='form-control' value={disease} onChange={e => setDisease(e.target.value)}/>
                                     </div>
-                                    <div className="mb-3 col-6">
-                                        <label className="form-label">Prescription Image:</label>
-                                        <input type="file" className='form-control' onChange={e => setPrescription(e.target.files[0])} />
-                                    </div>        
+                                           
                                  
                                     <div className="mb-3 col-6">
                                         <label className="form-label">Medicine:</label>
@@ -105,14 +102,10 @@ const RegisterPage = () => {
                                   
                                   <button className='btn btn-primary d-grid gap-6 g1'  onClick={handleSubmit}>
 
-                                  <Link to='/Register' className='l-container'  style={{fontSize:"30px"}}>Add</Link> 
+                              Edit
                                           
                                   </button>
-                                  <button className='btn btn-success d-grid gap-6 g2'>
-                                  <Link to='/Details' className='l-container' style={{fontSize:"30px"}}>Show</Link> 
-                                          {/* <button className="btn btn-primary ">Update</button>
-                         */}
-                                  </button>
+                                
 
                                   </div>
                           </form>
@@ -121,10 +114,10 @@ const RegisterPage = () => {
                   </div>
               </div>
           </div>
+</>}
     </div>
 
-    </div>
   )
 }
 
-export default RegisterPage
+export default EditPage

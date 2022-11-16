@@ -33,6 +33,15 @@ app.get('/details',async(req,res)=>{
 		res.status(500).send(err)
 	}
 })
+app.get('/details/:id',async(req,res)=>{
+    const {id}=req.params;
+    try {
+        const detail = await Details.findById(id)
+        res.status(200).json(detail);
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
 app.post('/details',upload.single('photo'),async(req,res)=>{
     const {name,gender,age,blood,phone,disease,medicine}=req.body
     try {
@@ -43,6 +52,27 @@ app.post('/details',upload.single('photo'),async(req,res)=>{
     } catch (error) {
         console.log(error)
       res.status(500).send(error) 
+    }
+})
+app.patch('/:id',async(req,res)=>{
+    const {id}=req.params
+    try {
+        const detail = await Details.findByIdAndUpdate(id,{...req.body});
+        console.log(detail,req.body)
+        await detail.save();
+        res.status(200).send("success")
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
+
+app.delete('/:id',async(req,res)=>{
+    const {id}=req.params
+    try {
+        await Details.findByIdAndDelete(id)
+        res.status(200).send('success')
+    } catch (error) {
+        res.status(500).send(error)
     }
 })
 

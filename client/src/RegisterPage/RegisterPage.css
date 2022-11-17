@@ -9,18 +9,18 @@
 }
  .g1 {
     background-color:rgb(102, 102, 229);
-    border-radius: 5px;
+    border-radius: 4px;
     
     text-decoration: none;
    
-    padding: 5px 2px 2px 2px ;
+    padding: 2px 2px 2px 2px ;
 }
 
 .g2{
-    background-color: crimson;
-    border-radius: 5px;
+    background-color: green;
+    border-radius: 4px;
   
-    padding: 5px 2px 2px 2px ;
+    padding: 2px 2px 2px 2px ;
 } 
 .l-container{
     color: white;
@@ -28,4 +28,11 @@
 }
 .l-container:hover{
     color:cornsilk
+}
+.l2{
+    background-color: pink;
+    font-size: x-large;
+}
+.l1{
+    padding: 100px;
 }

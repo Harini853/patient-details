@@ -41,12 +41,12 @@ const RegisterPage = () => {
           <div className="App my-5 ">
           <i class="fa-solid fa-stethoscope"></i>
      <div className='container login-container'>
-          <div className='row my-5'>
+          <div className='row my-5 l1'>
               <div className="col-lg-6 offset-lg-3">
-                  <div className="card shadow">
-                      <div className="card-body"> 
-                      <h2 className="text-center mb-3">Register</h2>
-                                <form className='row g-2 bg-info' >
+                  <div className="card shadow ">
+                      <div className="card-body l2"> 
+                      {/* <h2 className="text-center mb-3">Register</h2> */}
+                                <form className='row g-2 ' >
                                     <div className='mb-3 col-6'>
                                         <label className="form-label">Name:</label>
                                         <input type="text" placeholder='Full Name' className='form-control' value={name} onChange={e => setName(e.target.value)} />
@@ -105,11 +105,11 @@ const RegisterPage = () => {
                                   
                                   <button className='btn btn-primary d-grid gap-6 g1'  onClick={handleSubmit}>
 
-                                  <Link to='/Register' className='l-container'  style={{fontSize:"30px"}}>Add</Link> 
+                                  <Link to='/Register' className='l-container'  style={{fontSize:"25px"}}>Add</Link> 
                                           
                                   </button>
                                   <button className='btn btn-success d-grid gap-6 g2'>
-                                  <Link to='/Details' className='l-container' style={{fontSize:"30px"}}>Show</Link> 
+                                  <Link to='/Details' className='l-container' style={{fontSize:"25px"}}>Show</Link> 
                                           {/* <button className="btn btn-primary ">Update</button>
                          */}
                                   </button>

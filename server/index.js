@@ -3,9 +3,9 @@ const app = express()
 const path=require('path')
 const mongoose=require("mongoose")
 const cors=require("cors")
-const { storage, fileFilter } = require("./multer/upload")
-const multer = require('multer');
-const upload = multer({ limits: { fileSize: 2097152 }, fileFilter: fileFilter, storage: storage })
+const { storage, fileFilter } = require("./multer/upload") //to upload photos 
+const multer = require('multer'); //to snd the photos in forms 
+const upload = multer({ limits: { fileSize: 2097152 }, fileFilter: fileFilter, storage: storage }) //pdf 
 const Details=require('./models/details')
 mongoose.connect('mongodb+srv://harini:harini@cluster0.uph5keq.mongodb.net/?retryWrites=true&w=majority',{useNewUrlParser:true,useUnifiedTopology:true})
 .then( () => {

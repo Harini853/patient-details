@@ -105,8 +105,6 @@ const getData=async()=>{
                               Edit
                                           
                                   </button>
-                                
-
                                   </div>
                           </form>
                        </div>
@@ -119,5 +117,4 @@ const getData=async()=>{
 
   )
 }
-
 export default EditPage
